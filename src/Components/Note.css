@@ -1,0 +1,77 @@
+.Note-Container{
+    padding: 5vw;
+    background-color: #000000;
+    width: 30vw;
+    height: 25vw;
+}
+
+.Note-Header{
+    display: flex;
+    width: 100%;
+    height: 15%;
+    align-items: center;
+}
+
+.Title{
+    padding: 0;
+    margin: 0 3% 0 0;
+    height: 100%;
+    width: 40%;
+    font-size: 3vw;
+
+    color: white;
+    font-weight: 400;
+}
+
+.Title-Input{
+    height: 100%;
+    width: 60%;
+    outline: none;
+    font-size: 3vw;
+    font-weight: lighter;
+    text-indent: 1vw;
+    background-color: #d9d9d9;
+
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.Note-Input-Container{
+    margin-top: 5%;
+    width: calc(100% - 20px);
+    height: calc(50% - 20px);
+}
+
+.Note-Input{
+    background-color: #d9d9d9;
+    height: 100%;
+    width: 100%;
+    font-weight: 100;
+    outline: none;
+    resize: none;
+
+    padding: 10px;
+    margin: 0;
+    border: none;
+}
+
+.Button-Container{
+    margin-top: 10%;
+    height: 15%;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Custom-Button{
+    width: 45%;
+
+    font-size: 1.5vw;
+    font-weight: 100;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: #d9d9d9;
+}
+
