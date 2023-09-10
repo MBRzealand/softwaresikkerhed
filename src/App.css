@@ -15,12 +15,6 @@
   display: flex;
 }
 
-.Note-Container{
-  padding: 5vw;
-  background-color: #000000;
-  width: 30vw;
-  height: 25vw;
-}
 
 .Link-Container{
   border: 5px solid black;

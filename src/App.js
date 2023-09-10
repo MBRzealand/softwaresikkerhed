@@ -1,20 +1,14 @@
 import './App.css';
 import Note from "./Components/Note";
 import React from "react";
+import List from "./Components/List";
 
 function App() {
-
-
     return (
     <div className="App">
         <div className="App-Container">
-
             <Note/>
-
-            <div className="Link-Container">
-
-
-            </div>
+            <List/>
         </div>
     </div>
   );
