@@ -18,3 +18,24 @@
     background-color: #d9d9d9;
     width: 20vw;
 }
+
+.Add-Button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background-color: #b9b9b9;
+    border: 0.5px solid black;
+    width: 100%;
+    margin: 0;
+    padding: 0.5vw 0;
+    cursor: pointer;
+}
+
+.icon{
+    width: 10% ;
+}
+
+.Add-Button:hover{
+    background-color: #8c8c8c;
+}

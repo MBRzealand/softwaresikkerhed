@@ -36,7 +36,7 @@ const Note = () => {
 
     const handleDelete = () => {
         dispatch(
-            deleteNote()
+            deleteNote(noteState.number)
         )
     }
 

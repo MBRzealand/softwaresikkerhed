@@ -48,12 +48,10 @@ app.get('/get-notes', (req, res) => {
 });
 
 app.delete('/delete-note/:id', (req, res) => {
-    // Extract the element ID from the URL parameter
     const noteId = req.params.id;
 
     const deleteQuery = `DELETE FROM notes WHERE number = ?`;
 
-    // Execute the query to delete the element
     db.run(deleteQuery, [noteId], (err) => {
         if (err) {
             console.error(err.message);
