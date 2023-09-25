@@ -9,8 +9,10 @@ const Note = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchNotes())
-    },[]);
+        if(noteState.refresh) {
+            dispatch(fetchNotes())
+        }
+    },[dispatch, noteState.refresh]);
 
     useEffect(() => {
         console.log(noteState.allNotes)

@@ -10,6 +10,7 @@ const noteSlice = createSlice({
             text: "",
             allNotes: [],
             newNoteNumber: undefined,
+            refresh: true,
         }
     },
     reducers: {
@@ -39,6 +40,7 @@ const noteSlice = createSlice({
                 state.value.allNotes = action.payload.notes
                 state.value.number = state.value.allNotes[state.value.allNotes.length-1]?.number +1 || 1
                 state.value.newNoteNumber = state.value.number
+                state.value.refresh = false
             })
             .addCase(fetchNotes.rejected, (state, action) => {
                 state.value.loading = 'idle';
@@ -80,15 +82,13 @@ const noteSlice = createSlice({
             })
 
 
-            
+
             .addCase(updateNote.pending, (state) => {
                 state.value.loading = 'pending';
             })
             .addCase(updateNote.fulfilled, (state, action) => {
                 state.value.loading = 'idle';
-
-                FETCH NEW DATA
-
+                state.value.refresh = true;
             })
             .addCase(updateNote.rejected, (state, action) => {
                 state.value.loading = 'idle';
@@ -139,7 +139,7 @@ export const updateNote = createAsyncThunk(
     async ({number, note}, thunkAPI) => {
         try {
             // Make a POST request to your Express server API endpoint to update the element
-            const response = await fetch(`/api/updateElement/${number}`, {
+            const response = await fetch(`http://localhost:5444/update-note/${number}`, {
                 method: 'UPDATE',
                 headers: {
                     'Content-Type': 'application/json',

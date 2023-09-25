@@ -1,10 +1,14 @@
 .List-Element{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: black;
+    height: 2.5vw;
     background-color: #ffffff;
     border: 0.5px solid black;
     width: 100%;
     margin: 0;
-    padding: 1vw 0;
+    padding: 0;
     cursor: pointer;
 }
 
@@ -14,9 +18,21 @@
 
 
 .Link-Container{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    /*border: 1px red solid;*/
+}
+
+.Scroll-Container{
     border: 5px solid black;
     background-color: #d9d9d9;
     width: 20vw;
+    padding: 0vw;
+    height: calc(35vw - 10px);
+    margin: 0vw;
 }
 
 .Add-Button{
@@ -27,8 +43,9 @@
     background-color: #b9b9b9;
     border: 0.5px solid black;
     width: 100%;
+    height: 2.5vw;
     margin: 0;
-    padding: 0.5vw 0;
+    padding: 0 0;
     cursor: pointer;
 }
 

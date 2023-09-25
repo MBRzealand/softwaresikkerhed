@@ -62,6 +62,26 @@ app.delete('/delete-note/:id', (req, res) => {
     });
 });
 
+app.put('/update-note/:id', (req, res) => {
+    const { id } = req.params;
+    const { newData } = req.body;
+
+    db.run(
+        'UPDATE notes SET title = newData.title, text = newData.text WHERE id = ?',
+        [newData, id],
+        (err) => {
+            if (err) {
+                console.error(err.message);
+                res.status(500).json({ error: 'Failed to update note' });
+            } else {
+                res.json({ message: 'Note updated successfully' });
+            }
+        }
+    );
+});
+
+
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
