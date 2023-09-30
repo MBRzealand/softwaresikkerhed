@@ -17,17 +17,38 @@ const noteSlice = createSlice({
             state.value = action.payload
         },
         selectNote: (state, action) => {
-
             state.value.number = action.payload.number
             state.value.title = action.payload.title
             state.value.text = action.payload.text
+
+            // const text = action.payload.text
+            //
+            // console.log(text)
+            //
+            // const textBuffer = new TextEncoder().encode(text);
+            //
+            // console.log(textBuffer)
+            //
+            // const key = JSON.parse(localStorage.getItem("encryptionKey"))
+            // const importedKey = crypto.subtle.importKey('jwk', key, {name: 'AES-GCM'}, true, ['encrypt', 'decrypt']);
+            //
+            //
+            // console.log(importedKey)
+            //
+            // const decryptedText = window.crypto.subtle.decrypt(
+            //     {
+            //         name: "AES-GCM",
+            //         iv: "thisShouldBeStoredInDBButImLazy",
+            //
+            //     },
+            //     importedKey,
+            //     textBuffer //ArrayBuffer of the data
+            // )
+            //
+            // console.log(decryptedText)
+
         },
 
-        // deleteNote: (state) => {
-        //     state.value.allNotes.splice(state.value.noteNum - 1,1)
-        //     state.value.title = ""
-        //     state.value.text = ""
-        // }
     },
     extraReducers: (builder) => {
         builder
@@ -51,6 +72,7 @@ const noteSlice = createSlice({
             })
             .addCase(saveNote.fulfilled, (state, action) => {
                 state.value.loading = 'idle';
+
                 state.value.allNotes.push({
                     number: state.value.number,
                     title: state.value.title,
@@ -87,7 +109,7 @@ const noteSlice = createSlice({
             .addCase(updateNote.fulfilled, (state, action) => {
                 state.value.loading = 'idle';
 
-                FETCH NEW DATA
+                // FETCH NEW DATA
 
             })
             .addCase(updateNote.rejected, (state, action) => {
@@ -97,6 +119,7 @@ const noteSlice = createSlice({
 
     },
 })
+
 
 export const fetchNotes = createAsyncThunk(
     'notes/fetchNotes',
@@ -110,13 +133,32 @@ export const fetchNotes = createAsyncThunk(
 export const saveNote = createAsyncThunk(
     'notes/saveNote',
     async (requestData, thunkAPI) => {
+
+        let request = requestData
+        const textBuffer = new TextEncoder().encode(requestData.text);
+
+        const key = JSON.parse(localStorage.getItem("encryptionKey"))
+        const importedKey = await crypto.subtle.importKey('jwk', key, { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
+
+        const encryptedBuffer = await crypto.subtle.encrypt(
+            { name: 'AES-GCM', iv: "thisShouldBeStoredInDBButImLazy" },
+            importedKey,
+            textBuffer
+        );
+
+        const encryptedText = Array.from(new Uint8Array(encryptedBuffer))
+            .map(byte => byte.toString(16).padStart(2, '0'))
+            .join('');
+
+        request.text = encryptedText
+
         return await fetch(
             'http://localhost:5444/save-note', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(requestData),
+                body: (JSON.stringify(request)),
             }
         ).then(result => result.json());
     },

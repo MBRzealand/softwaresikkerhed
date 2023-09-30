@@ -7,12 +7,14 @@ import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 
 import noteReducer from "./Features/NoteSlice";
+import cryptoReducer from "./Features/CryptoSlice";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const store = configureStore({
     reducer: {
         note: noteReducer,
+        crypto: cryptoReducer,
     }
 });
 
