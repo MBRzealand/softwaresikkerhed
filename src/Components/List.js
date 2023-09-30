@@ -32,9 +32,11 @@ const List = () => {
     }
 
     return (
-        <div className="Link-Container">
+        <div className={"Scroll-Container"} >
+            <div className="Link-Container">
             {notes}
             {noteState.number<noteState.newNoteNumber && <div className={"Add-Button"} onClick={handleNewNoteClick}><img className={"icon"} src={require("../Images/plusIconWhite.png")} alt={"Add Note"}/></div>}
+            </div>
         </div>
     );
 };
