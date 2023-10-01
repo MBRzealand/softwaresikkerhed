@@ -37,8 +37,6 @@ export const generateKey = createAsyncThunk(
     },
 );
 
-
-
 // export const {getKey, saveKey} = CryptoSlice.actions
 
 export default CryptoSlice.reducer

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './Note.css';
 import {useDispatch, useSelector} from "react-redux";
-import {changeNote, saveNote, deleteNote, fetchNotes} from "../Features/NoteSlice";
+import {changeNote, saveNote, deleteNote, fetchNotes, updateNote} from "../Features/NoteSlice";
 
 const Note = () => {
 
@@ -31,9 +31,16 @@ const Note = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         const note = {number: noteState.number, title: noteState.title, text : noteState.text }
-        dispatch(
-            saveNote(note)
-        )
+
+        if (noteState.allNotes.some(element => element.number === noteState.number)) {
+            dispatch(
+                updateNote(note)
+            )
+        } else {
+            dispatch(
+                saveNote(note)
+            )
+        }
     }
 
     const handleDelete = () => {
@@ -62,8 +69,11 @@ const Note = () => {
                 />
             </div>
             <div className="Button-Container">
-                <button className="Custom-Button" onClick={handleSubmit}>Gem</button>
-                <button onClick={handleDelete} className="Custom-Button">Slet</button>
+                <div className="Left-Button-Container">
+                    <button className="Custom-Button-1" onClick={handleSubmit}>Gem</button>
+                    <button onClick={handleDelete} className="Custom-Button-1">Slet</button>
+                </div>
+                <button className="Custom-Button-2">Dekrypter</button>
             </div>
         </div>
     );

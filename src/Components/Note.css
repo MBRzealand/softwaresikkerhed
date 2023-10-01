@@ -59,22 +59,46 @@
 .Button-Container{
     margin-top: 10%;
     height: 15%;
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.Custom-Button{
+.Custom-Button-1{
     width: 45%;
+    height: 100%;
     font-size: 1.5vw;
     font-weight: 100;
     padding: 0;
     margin: 0;
     border: none;
     background-color: #d9d9d9;
+    cursor: pointer;
 }
 
-.Custom-Button:active{
+.Left-Button-Container{
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
+    height: 100%;
+}
+
+.Custom-Button-2{
+    width: 30%;
+    font-size: 1.5vw;
+    font-weight: 100;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: #d9d9d9;
+    cursor: pointer;
+}
+
+.Custom-Button-1:active{
+    background-color: #b6b6b6;
+}
+
+.Custom-Button-2:active{
     background-color: #b6b6b6;
 }
 

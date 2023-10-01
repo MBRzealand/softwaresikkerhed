@@ -18,11 +18,11 @@ let db = new sqlite3.Database('notes.sqlite', (err) => {
 
 app.post('/save-note', (req, res) => {
 
-    const { number, title, text } = req.body;
+    const { number, title, text, iv } = req.body;
 
-    const insertQuery = `INSERT INTO notes (number, title, text) VALUES (?, ?, ?)`;
+    const insertQuery = `INSERT INTO notes (number, title, text, iv) VALUES (?, ?, ?, ?)`;
 
-    db.run(insertQuery, [number, title, text], function (err) {
+    db.run(insertQuery, [number, title, text, iv], function (err) {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Error adding element to the database' });
@@ -50,7 +50,7 @@ app.get('/get-notes', (req, res) => {
 app.delete('/delete-note/:id', (req, res) => {
     const noteId = req.params.id;
 
-    const deleteQuery = `DELETE FROM notes WHERE number = ?`;
+    const deleteQuery = `DELETE FROM notes WHERE number = id`;
 
     db.run(deleteQuery, [noteId], (err) => {
         if (err) {
@@ -63,12 +63,15 @@ app.delete('/delete-note/:id', (req, res) => {
 });
 
 app.put('/update-note/:id', (req, res) => {
-    const { id } = req.params;
-    const { newData } = req.body;
+    const  noteId  = req.params.id;
+    const {title, text, iv}  = req.body;
 
-    db.run(
-        'UPDATE notes SET title = newData.title, text = newData.text WHERE id = ?',
-        [newData, id],
+    console.log(noteId)
+
+    const updateQuery = `UPDATE notes SET title = ?, text = ?, iv = ? WHERE number = ?`
+
+    db.run(updateQuery,
+        [title, text, iv, noteId],
         (err) => {
             if (err) {
                 console.error(err.message);
