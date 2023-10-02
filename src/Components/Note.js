@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './Note.css';
 import {useDispatch, useSelector} from "react-redux";
-import {changeNote, saveNote, deleteNote, fetchNotes, updateNote} from "../Features/NoteSlice";
+import {changeNote, saveNote, deleteNote, fetchNotes, updateNote, decryptText} from "../Features/NoteSlice";
 
 const Note = () => {
 
@@ -13,10 +13,6 @@ const Note = () => {
             dispatch(fetchNotes())
         }
     },[dispatch, noteState.refresh]);
-
-    useEffect(() => {
-        console.log(noteState.allNotes)
-    }, [noteState.allNotes]);
 
     const handleChange = (event) => {
         const {name,value} = event.target
@@ -49,6 +45,19 @@ const Note = () => {
         )
     }
 
+    const handleDecrypt = () => {
+
+        let note = noteState.allNotes.filter(obj => {
+            return obj.number === noteState.number
+        })
+
+        note = note[0]
+
+        dispatch(
+            decryptText({number: noteState.number, note: note})
+        )
+    }
+
     return (
         <div className="Note-Container">
             <div className="Note-Header">
@@ -73,7 +82,7 @@ const Note = () => {
                     <button className="Custom-Button-1" onClick={handleSubmit}>Gem</button>
                     <button onClick={handleDelete} className="Custom-Button-1">Slet</button>
                 </div>
-                <button className="Custom-Button-2">Dekrypter</button>
+                <button onClick={handleDecrypt} className="Custom-Button-2">Dekrypter</button>
             </div>
         </div>
     );

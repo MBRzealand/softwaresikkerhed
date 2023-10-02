@@ -90,6 +90,20 @@ const noteSlice = createSlice({
                 state.value.error = action.error.message; // Save the error message to the state
             })
 
+
+
+            .addCase(decryptText.pending, (state) => {
+                state.value.loading = 'pending';
+            })
+            .addCase(decryptText.fulfilled, (state, action) => {
+                state.value.loading = 'idle';
+                state.value.text = action.payload
+            })
+            .addCase(decryptText.rejected, (state, action) => {
+                state.value.loading = 'idle';
+                state.value.error = action.error.message; // Save the error message to the state
+            })
+
     },
 })
 
@@ -199,6 +213,33 @@ export const updateNote = createAsyncThunk(
     }
 );
 
+
+export const decryptText = createAsyncThunk(
+    'notes/decrypt',
+    async ({number, note}, thunkAPI) => {
+
+        const key = JSON.parse(localStorage.getItem("encryptionKey"))
+        const importedKey = await crypto.subtle.importKey('jwk', key, { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
+
+        // convert stored object Uint8Array
+        let iv = JSON.parse(note.iv)
+        iv = Object.values(iv)
+        iv = new Uint8Array(iv)
+
+
+        // convert stored hex string to Uint8Array
+        const bytes = [];
+        for (let i = 0; i < note.text.length; i += 2) {
+            bytes.push(parseInt(note.text.substr(i, 2), 16));
+        }
+        const text = new Uint8Array(bytes);
+
+        // decrypt
+        const algorithm = { name: 'AES-GCM', iv: iv};
+
+        return await window.crypto.subtle.decrypt(algorithm, importedKey, text).then(response => new TextDecoder().decode(response))
+    },
+);
 
 
 

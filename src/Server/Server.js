@@ -66,8 +66,6 @@ app.put('/update-note/:id', (req, res) => {
     const  noteId  = req.params.id;
     const {title, text, iv}  = req.body;
 
-    console.log(noteId)
-
     const updateQuery = `UPDATE notes SET title = ?, text = ?, iv = ? WHERE number = ?`
 
     db.run(updateQuery,
