@@ -3,11 +3,13 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const cors = require("cors");
 app.set('trust proxy', true)
+app.disable('x-powered-by');
 const port = 5444
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
 app.use(express.json());
+
 
 let fs = require('fs');
 let logStream = fs.createWriteStream('log.txt', {flags: 'a'});
